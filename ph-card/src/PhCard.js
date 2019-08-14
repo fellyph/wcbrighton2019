@@ -14,11 +14,17 @@ export class PhCard extends LitElement {
         background: #fff;
         display: inline-block;
         border-radius: 2px;
-        height: 300px;
+        min-height: 300px;
         margin: 1rem;
         width: 300px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
         transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+
+      .thumb img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 1em;
       }
 
       .card:hover {
@@ -56,7 +62,7 @@ export class PhCard extends LitElement {
     super();
     this.title = 'Hey WordCamp Brighton';
     this.url = 'https://twitter.com/fellyph';
-    this.thumb = 'https://twitter.com/fellyph';
+    this.thumb = 'https://fellyph.com.br/img/icon-512.png';
   }
 
   __share() {
@@ -67,8 +73,8 @@ export class PhCard extends LitElement {
     return html`
       <div class="card">
         <h2>${this.title}</h2>
-        <picture>
-          <img src="" />
+        <picture class="thumb">
+          <img src="${this.thumb}" />
         </picture>
         <button @click=${this.__increment} class="btn">share</button>
       </div>
