@@ -1,19 +1,19 @@
-# \<ph-card>
+# \<wc-brighton>
 
 This webcomponent follows the [open-wc](https://github.com/open-wc/open-wc) recommendation.
 
 ## Installation
 ```bash
-npm i ph-card
+npm i wc-brighton
 ```
 
 ## Usage
 ```html
 <script type="module">
-  import 'ph-card/ph-card.js';
+  import 'wc-brighton/wc-brighton.js';
 </script>
 
-<ph-card></ph-card>
+<wc-brighton></wc-brighton>
 ```
 
 ## Testing using karma (if applied by author)

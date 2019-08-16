@@ -1,8 +1,8 @@
 {
-  "name": "ph-card",
+  "name": "wc-brighton",
   "version": "0.0.0",
-  "description": "Webcomponent ph-card following open-wc recommendations",
-  "author": "ph-card",
+  "description": "Webcomponent wc-brighton following open-wc recommendations",
+  "author": "wc-brighton",
   "license": "MIT",
   "main": "index.js",
   "module": "index.js",
@@ -14,7 +14,17 @@
     "lint:prettier": "prettier \"**/*.js\" --check --ignore-path .gitignore",
     "format:prettier": "prettier \"**/*.js\" --write --ignore-path .gitignore",
     "lint": "npm run lint:eslint && npm run lint:prettier",
-    "format": "npm run format:eslint && npm run format:prettier"
+    "format": "npm run format:eslint && npm run format:prettier",
+    "test": "karma start --coverage",
+    "test:watch": "karma start --auto-watch=true --single-run=false",
+    "test:update-snapshots": "karma start --update-snapshots",
+    "test:prune-snapshots": "karma start --prune-snapshots",
+    "test:compatibility": "karma start --compatibility all --coverage",
+    "test:compatibility:watch": "karma start --compatibility all --auto-watch=true --single-run=false",
+    "test:bs": "karma start karma.bs.config.js --compatibility all --coverage",
+    "site:build": "npm run storybook:build",
+    "storybook": "start-storybook -p 9001",
+    "storybook:build": "build-storybook -o _site -s storybook-static"
   },
   "dependencies": {
     "lit-html": "^1.0.0",
@@ -25,7 +35,12 @@
     "@open-wc/eslint-config": "^1.0.0",
     "@open-wc/prettier-config": "^0.1.10",
     "husky": "^1.0.0",
-    "lint-staged": "^8.0.0"
+    "lint-staged": "^8.0.0",
+    "@open-wc/testing-karma": "^3.0.0",
+    "webpack-merge": "^4.1.5",
+    "@open-wc/testing-karma-bs": "^1.0.0",
+    "@open-wc/testing": "^0.11.1",
+    "@open-wc/demoing-storybook": "^0.3.0"
   },
   "eslintConfig": {
     "extends": [

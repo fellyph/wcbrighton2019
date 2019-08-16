@@ -1,6 +1,6 @@
 import { html, css, LitElement } from 'lit-element';
 
-export class PhCard extends LitElement {
+export class WcBrighton extends LitElement {
   static get styles() {
     return css`
       :host {
@@ -76,7 +76,7 @@ export class PhCard extends LitElement {
         <picture class="thumb">
           <img src="${this.thumb}" />
         </picture>
-        <button @click=${this.__increment} class="btn">share</button>
+        <button @click=${this.__share} class="btn">share</button>
       </div>
     `;
   }
