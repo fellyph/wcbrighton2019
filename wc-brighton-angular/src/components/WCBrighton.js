@@ -1,4 +1,4 @@
-const cardTemplate = document.createElement("template");
+const cardTemplate = document.createElement('template');
 cardTemplate.innerHTML = `
   <style>
     :host {

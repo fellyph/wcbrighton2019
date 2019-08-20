@@ -1,4 +1,4 @@
-const cardTemplate = document.createElement("template");
+const cardTemplate = document.createElement( 'template' );
 cardTemplate.innerHTML = `
   <style>
     :host {
@@ -10,10 +10,10 @@ cardTemplate.innerHTML = `
     .card {
       padding: 1em;
       background: #fff;
-      display: inline-block;
+      display: block;
       border-radius: 2px;
       min-height: 300px;
-      margin: 1rem;
+      margin: 1rem auto;
       width: 300px;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -58,46 +58,44 @@ cardTemplate.innerHTML = `
 `;
 
 class WcBrighton extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-    this.shadowRoot.appendChild(cardTemplate.content.cloneNode(true));
-    this.titleContainer = this.shadowRoot.querySelector('.card__title');
-    this.imgContainer = this.shadowRoot.querySelector('.card_img');
-  }
+	constructor() {
+		super();
+		this.attachShadow( { mode: 'open' } );
+		this.shadowRoot.appendChild( cardTemplate.content.cloneNode( true ) );
+		this.titleContainer = this.shadowRoot.querySelector( '.card__title' );
+		this.imgContainer = this.shadowRoot.querySelector( '.card_img' );
+	}
 
-  connectedCallback() {
-    console.log('test');
+	connectedCallback() {
+		if ( this.hasAttribute( 'src' ) ) {
+			this.src = this.getAttribute( 'src' );
+			this.imgContainer.src = this.imgSrc;
+		}
 
-    if (this.hasAttribute('src')) {
-      this.src = this.getAttribute('src')
-      this.imgContainer.src = this.imgSrc;
-    }
+		if ( this.hasAttribute( 'title' ) ) {
+			this.title = this.getAttribute( 'title' );
+			this.titleContainer.innerHTML = this.title;
+		}
+	}
 
-    if (this.hasAttribute('title')) {
-      this.title = this.getAttribute('title');
-      this.titleContainer.innerHTML = this.title;
-    }
-  }
+	attributeChangedCallback( name, oldValue, newValue ) {
+		console.log( 'onChange' );
 
-  attributeChangedCallback(name, oldValue, newValue) {
-    console.log('onChange');
+		switch ( name ) {
+			case 'title':
+				console.log( `title changed from ${ oldValue } to ${ newValue }` );
+				this.titleContainer.innerHTML = newValue;
+				break;
+			case 'src':
+				console.log( `imgSrc changed ${ newValue }!` );
+				this.imgContainer.src = newValue;
+				break;
+		}
+	}
 
-    switch (name) {
-      case 'title':
-        console.log(`title changed from ${oldValue} to ${newValue}`);
-        this.titleContainer.innerHTML = newValue;
-        break;
-      case 'src':
-        console.log(`imgSrc changed ${newValue}!`);
-        this.imgContainer.src = newValue;
-        break;
-    }
-  }
-
-  static get observedAttributes() {
-    return ['title', 'src'];
-  }
+	static get observedAttributes() {
+		return [ 'title', 'src' ];
+	}
 }
 
-customElements.define('wc-brighton', WcBrighton);
+customElements.define( 'wc-brighton', WcBrighton );

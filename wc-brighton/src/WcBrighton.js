@@ -66,7 +66,7 @@ export class WcBrighton extends LitElement {
   }
 
   __share() {
-    this.counter += 1;
+    console.log(this.title);
   }
 
   render() {

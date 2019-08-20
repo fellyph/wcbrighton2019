@@ -8,10 +8,15 @@
 //  Import CSS.
 import './style.scss';
 import './editor.scss';
-import '../components/WCBrighton';
 
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
+const {
+	TextControl,
+	PanelBody,
+	PanelRow,
+	Panel,
+} = wp.components;
 
 /**
  * Register: aa Gutenberg Block.
@@ -29,29 +34,56 @@ const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.b
 
 registerBlockType( 'cgb/block-wc-brighton-gutenberg', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
-	title: __( 'wc-brighton-gutenberg - CGB Block' ), // Block title.
+	title: __( 'wc-brighton-gutenberg - Web Component' ), // Block title.
 	icon: 'shield', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
 	category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
 	keywords: [
-		__( 'wc-brighton-gutenberg — CGB Block' ),
-		__( 'CGB Example' ),
+		__( 'wc-brighton-gutenberg — Web Component' ),
+		__( 'Web Component Example' ),
 		__( 'create-guten-block' ),
 	],
 
-	edit: ( props ) => {
-		// Creates a <p class='wp-block-cgb-block-wc-brighton-gutenberg'></p>.
+	attributes: {
+		titleBlock: {
+			type: 'string',
+			default: 'Web component with Gutenberg',
+		},
+		thumbUrl: {
+			type: 'string',
+			default: 'https://fellyph.com.br/img/icon-512.png',
+		},
+	},
+
+	edit: ( { attributes, setAttributes } ) => {
+		const { titleBlock, thumbUrl } = attributes;
 		return (
-			<div className={ props.className }>
-				<p>— Hello from the backend.</p>
-			</div>
+			<Panel>
+				<PanelBody title={ __( 'Web component block' ) } initialOpen={ true } >
+					<PanelRow>
+						<TextControl
+							value={ titleBlock }
+							onChange={ ( newTitle ) => {
+								setAttributes( { titleBlock: newTitle } );
+							} }
+							label={ __( 'Title' ) } />
+					</PanelRow>
+					<PanelRow>
+						<TextControl
+							value={ thumbUrl }
+							onChange={ ( newThumb ) => {
+								setAttributes( { thumbUrl: newThumb } );
+							} }
+							label={ __( 'Thumb URL' ) } />
+					</PanelRow>
+				</PanelBody>
+			</Panel>
 		);
 	},
 
-	save: () => {
+	save: ( { attributes } ) => {
+		const { titleBlock, thumbUrl } = attributes;
 		return (
-			<div>
-				<wc-brighton title="This Components runs with React" imgSrc="https://fellyph.com.br/img/icon-512.png"></wc-brighton>
-			</div>
+			<wc-brighton title={ titleBlock } src={ thumbUrl }></wc-brighton>
 		);
 	},
 } );
